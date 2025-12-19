@@ -11,16 +11,6 @@
 
 ---
 
-## � Screenshots
-
-| Welcome Screen | Home Dashboard | Interactive Lesson |
-|:---:|:---:|:---:|
-| *(Place Screenshot Here)* | *(Place Screenshot Here)* | *(Place Screenshot Here)* |
-| **Profile & Stats** | **Leaderboard** | **Achievements** |
-| *(Place Screenshot Here)* | *(Place Screenshot Here)* | *(Place Screenshot Here)* |
-
----
-
 ## ✨ Key Features
 
 ### 🧠 **Immersive Learning**

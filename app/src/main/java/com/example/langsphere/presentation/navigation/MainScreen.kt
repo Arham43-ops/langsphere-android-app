@@ -2,6 +2,7 @@ package com.example.langsphere.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
@@ -16,10 +17,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.langsphere.presentation.achievements.AchievementsScreen
+import com.example.langsphere.presentation.chat.ChatScreen
 import com.example.langsphere.presentation.home.HomeScreen
 import com.example.langsphere.presentation.leaderboard.LeaderboardScreen
 import com.example.langsphere.presentation.lesson.LessonScreen
 import com.example.langsphere.presentation.profile.ProfileScreen
+import com.example.langsphere.presentation.vocabulary.VocabularyScreen
 
 sealed class BottomNavItem(val route: String, val label: String, val icon: ImageVector) {
     object Home : BottomNavItem("home_tab", "Home", Icons.Default.Home)
@@ -36,8 +39,19 @@ fun MainScreen(
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
+        floatingActionButton = {
+            if (currentRoute == BottomNavItem.Home.route) {
+                FloatingActionButton(
+                    onClick = { bottomNavController.navigate("chat") },
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ) {
+                    Icon(Icons.Default.Chat, contentDescription = "AI Chat")
+                }
+            }
+        },
         bottomBar = {
-            if (currentRoute != "lesson/{languageId}" && currentRoute != "achievements") { 
+            if (currentRoute != "lesson/{languageId}" && currentRoute != "achievements" && currentRoute != "chat" && currentRoute != "vocabulary") { 
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentColor = MaterialTheme.colorScheme.primary
@@ -72,7 +86,8 @@ fun MainScreen(
                 HomeScreen(
                     onLanguageSelected = { languageId ->
                         bottomNavController.navigate("lesson/$languageId")
-                    }
+                    },
+                    onNavigateToVocab = { bottomNavController.navigate("vocabulary") }
                 )
             }
             composable(BottomNavItem.Leaderboard.route) {
@@ -86,6 +101,12 @@ fun MainScreen(
             }
             composable("achievements") {
                 AchievementsScreen(onNavigateBack = { bottomNavController.popBackStack() })
+            }
+            composable("chat") {
+                ChatScreen(onNavigateBack = { bottomNavController.popBackStack() })
+            }
+            composable("vocabulary") {
+                VocabularyScreen(onNavigateBack = { bottomNavController.popBackStack() })
             }
             composable("lesson/{languageId}") { backStackEntry ->
                 val languageId = backStackEntry.arguments?.getString("languageId") ?: ""

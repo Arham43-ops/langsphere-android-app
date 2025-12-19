@@ -23,7 +23,8 @@ import com.example.langsphere.domain.model.Language
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onLanguageSelected: (String) -> Unit
+    onLanguageSelected: (String) -> Unit,
+    onNavigateToVocab: () -> Unit
 ) {
     val languages by viewModel.languages.collectAsState()
 
@@ -53,11 +54,21 @@ fun HomeScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "35 / 50 XP",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                Row(
+                   modifier = Modifier.fillMaxWidth(),
+                   horizontalArrangement = Arrangement.SpaceBetween,
+                   verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "35 / 50 XP",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    
+                    TextButton(onClick = onNavigateToVocab) {
+                        Text("My Dictionary \uD83D\uDCD6")
+                    }
+                }
             }
         }
 
