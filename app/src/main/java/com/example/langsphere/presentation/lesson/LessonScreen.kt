@@ -132,6 +132,29 @@ fun LessonScreen(
                                 )
                             }
                         }
+                        
+                        Spacer(modifier = Modifier.height(24.dp))
+                        
+                        // Complete Lesson Button
+                        Button(
+                            onClick = {
+                                viewModel.completeLesson()
+                                onNavigateBack()
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
+                            Text(
+                                text = "Complete Lesson",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }

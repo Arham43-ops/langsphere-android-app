@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun ProfileScreen(
     onLogout: () -> Unit,
     onNavigateToAchievements: () -> Unit = {},
+    onNavigateToEditProfile: () -> Unit = {},
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val user by viewModel.user.collectAsState()
@@ -66,6 +67,91 @@ fun ProfileScreen(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSecondaryContainer
         )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        // Rank display
+        val userStats by viewModel.userEntity.collectAsState()
+        val currentXp = userStats?.totalXp ?: 0
+        
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer
+            ),
+            shape = RoundedCornerShape(20.dp)
+        ) {
+            Text(
+                text = "Rank: ${calculateRank(currentXp)}",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
+            )
+        }
+        
+        Spacer(modifier = Modifier.height(12.dp))
+        
+        // XP Progress to next rank
+        val nextRankXp = getNextRankXp(currentXp)
+        val previousRankXp = getPreviousRankXp(currentXp)
+        val progress = if (nextRankXp > previousRankXp) {
+            ((currentXp - previousRankXp).toFloat() / (nextRankXp - previousRankXp))
+        } else {
+            1f
+        }
+        
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            ),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "$currentXp XP",
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = "$nextRankXp XP",
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                LinearProgressIndicator(
+                    progress = progress,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp)),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "${nextRankXp - currentXp} XP to next rank",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        // Edit Profile Button
+        OutlinedButton(
+            onClick = onNavigateToEditProfile,
+            modifier = Modifier.width(150.dp)
+        ) {
+            Icon(Icons.Default.Person, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Edit Profile")
+        }
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -82,8 +168,34 @@ fun ProfileScreen(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                StatItem(label = "Total XP", value = "150", color = MaterialTheme.colorScheme.primary)
-                StatItem(label = "Day Streak", value = "🔥 3", color = MaterialTheme.colorScheme.secondary)
+                StatItem(
+                    label = "Total XP", 
+                    value = "${userStats?.totalXp ?: 0}", 
+                    color = MaterialTheme.colorScheme.primary
+                )
+                StatItem(
+                    label = "Day Streak", 
+                    value = if ((userStats?.streakDays ?: 0) > 0) "🔥 ${userStats?.streakDays}" else "0", 
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        // Progress message
+        if ((userStats?.totalXp ?: 0) < 100) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "💪 Keep learning to reach 100 XP!",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colorScheme.onTertiaryContainer
+                )
             }
         }
 
@@ -133,5 +245,37 @@ fun StatItem(label: String, value: String, color: Color) {
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Gray
         )
+    }
+}
+
+// Simple rank calculation based on XP thresholds
+private fun calculateRank(xp: Int): String {
+    return when {
+        xp == 0 -> "—"
+        xp < 50 -> "Beginner"
+        xp < 200 -> "Novice"
+        xp < 500 -> "Intermediate"
+        xp < 1000 -> "Advanced"
+        else -> "Expert"
+    }
+}
+
+private fun getNextRankXp(currentXp: Int): Int {
+    return when {
+        currentXp < 50 -> 50
+        currentXp < 200 -> 200
+        currentXp < 500 -> 500
+        currentXp < 1000 -> 1000
+        else -> currentXp + 500 // Keep adding goals for experts
+    }
+}
+
+private fun getPreviousRankXp(currentXp: Int): Int {
+    return when {
+        currentXp < 50 -> 0
+        currentXp < 200 -> 50
+        currentXp < 500 -> 200
+        currentXp < 1000 -> 500
+        else -> 1000
     }
 }

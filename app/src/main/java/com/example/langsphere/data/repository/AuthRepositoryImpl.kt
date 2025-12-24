@@ -56,7 +56,7 @@ class AuthRepositoryImpl @Inject constructor(
             id = email, // Using email as ID for simplicity
             name = name,
             email = email,
-            totalXp = 50 // Bonus for joining!
+            totalXp = 0 // Users earn XP by completing lessons
         )
         userDao.insertUser(newUser)
         authDataStore.saveAuthToken(newUser.id, newUser.name, newUser.email)

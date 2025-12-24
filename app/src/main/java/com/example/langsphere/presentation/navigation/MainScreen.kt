@@ -51,7 +51,7 @@ fun MainScreen(
             }
         },
         bottomBar = {
-            if (currentRoute != "lesson/{languageId}" && currentRoute != "achievements" && currentRoute != "chat" && currentRoute != "vocabulary") { 
+            if (currentRoute != "lesson/{lessonId}" && currentRoute != "lessonList/{languageId}" && currentRoute != "achievements" && currentRoute != "chat" && currentRoute != "vocabulary" && currentRoute != "editProfile") { 
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentColor = MaterialTheme.colorScheme.primary
@@ -85,7 +85,7 @@ fun MainScreen(
             composable(BottomNavItem.Home.route) {
                 HomeScreen(
                     onLanguageSelected = { languageId ->
-                        bottomNavController.navigate("lesson/$languageId")
+                        bottomNavController.navigate("lessonList/$languageId")
                     },
                     onNavigateToVocab = { bottomNavController.navigate("vocabulary") }
                 )
@@ -96,11 +96,17 @@ fun MainScreen(
             composable(BottomNavItem.Profile.route) {
                 ProfileScreen(
                     onLogout = onLogout,
-                    onNavigateToAchievements = { bottomNavController.navigate("achievements") }
+                    onNavigateToAchievements = { bottomNavController.navigate("achievements") },
+                    onNavigateToEditProfile = { bottomNavController.navigate("editProfile") }
                 )
             }
             composable("achievements") {
                 AchievementsScreen(onNavigateBack = { bottomNavController.popBackStack() })
+            }
+            composable("editProfile") {
+                com.example.langsphere.presentation.profile.EditProfileScreen(
+                    onNavigateBack = { bottomNavController.popBackStack() }
+                )
             }
             composable("chat") {
                 ChatScreen(onNavigateBack = { bottomNavController.popBackStack() })
@@ -108,10 +114,20 @@ fun MainScreen(
             composable("vocabulary") {
                 VocabularyScreen(onNavigateBack = { bottomNavController.popBackStack() })
             }
-            composable("lesson/{languageId}") { backStackEntry ->
+            composable("lessonList/{languageId}") { backStackEntry ->
                 val languageId = backStackEntry.arguments?.getString("languageId") ?: ""
-                LessonScreen(
+                com.example.langsphere.presentation.lesson.LessonListScreen(
                     languageId = languageId,
+                    onNavigateBack = { bottomNavController.popBackStack() },
+                    onLessonSelected = { lessonId ->
+                        bottomNavController.navigate("lesson/$lessonId")
+                    }
+                )
+            }
+            composable("lesson/{lessonId}") { backStackEntry ->
+                val lessonId = backStackEntry.arguments?.getString("lessonId") ?: ""
+                LessonScreen(
+                    languageId = lessonId, // Note: using lessonId now instead of languageId
                     onNavigateBack = { bottomNavController.popBackStack() }
                 )
             }

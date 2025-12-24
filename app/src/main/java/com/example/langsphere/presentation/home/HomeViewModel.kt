@@ -3,6 +3,7 @@ package com.example.langsphere.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.langsphere.domain.model.Language
+import com.example.langsphere.domain.repository.AuthRepository
 import com.example.langsphere.domain.repository.LessonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,11 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: LessonRepository
+    private val repository: LessonRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _languages = MutableStateFlow<List<Language>>(emptyList())
     val languages: StateFlow<List<Language>> = _languages.asStateFlow()
+    
+    val currentUser = authRepository.getCurrentUser()
 
     init {
         loadLanguages()

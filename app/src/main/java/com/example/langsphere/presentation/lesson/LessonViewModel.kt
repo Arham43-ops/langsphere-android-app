@@ -21,10 +21,12 @@ class LessonViewModel @Inject constructor(
     private val repository: LessonRepository,
     private val ttsManager: TextToSpeechManager,
     private val speechManager: SpeechRecognitionManager,
+    private val userDao: com.example.langsphere.data.local.dao.UserDao,
+    private val authRepository: com.example.langsphere.domain.repository.AuthRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val languageId: String = checkNotNull(savedStateHandle["languageId"])
+    private val lessonId: String = checkNotNull(savedStateHandle["lessonId"])
 
     private val _lessonState = MutableStateFlow<LessonUiState>(LessonUiState.Loading)
     val lessonState: StateFlow<LessonUiState> = _lessonState.asStateFlow()
@@ -38,11 +40,24 @@ class LessonViewModel @Inject constructor(
 
     private fun loadLesson() {
         viewModelScope.launch {
-            repository.getLessonsForLanguage(languageId).collect { lessons ->
-                if (lessons.isNotEmpty()) {
-                    _lessonState.value = LessonUiState.Success(lessons.first())
-                } else {
-                    _lessonState.value = LessonUiState.Error("No lessons found for this language")
+            val lesson = repository.getLessonDetails(lessonId)
+            if (lesson != null) {
+                _lessonState.value = LessonUiState.Success(lesson)
+            } else {
+                _lessonState.value = LessonUiState.Error("Lesson not found")
+            }
+        }
+    }
+
+    fun completeLesson() {
+        viewModelScope.launch {
+            val lesson = (_lessonState.value as? LessonUiState.Success)?.lesson ?: return@launch
+            val xpReward = lesson.difficultyLevel * 20 // 20 XP per difficulty level
+            
+            // Award XP to current user
+            authRepository.getCurrentUser().collect { user ->
+                if (user != null) {
+                    userDao.addXp(user.id, xpReward)
                 }
             }
         }
@@ -50,10 +65,15 @@ class LessonViewModel @Inject constructor(
 
     fun playAudio(text: String, languageCode: String) {
         val locale = when (languageCode) {
-            "es" -> Locale("es", "ES")
-            "fr" -> Locale.FRANCE
-            "de" -> Locale.GERMANY
-            "jp" -> Locale.JAPAN
+            "es" -> Locale("es", "ES")      // Spanish (Spain)
+            "fr" -> Locale.FRANCE            // French
+            "de" -> Locale.GERMANY           // German
+            "it" -> Locale.ITALY             // Italian
+            "pt" -> Locale("pt", "BR")       // Portuguese (Brazil)
+            "ru" -> Locale("ru", "RU")       // Russian
+            "zh" -> Locale.SIMPLIFIED_CHINESE // Mandarin
+            "jp" -> Locale.JAPAN             // Japanese
+            "en" -> Locale.US                // English
             else -> Locale.US
         }
         ttsManager.speak(text, locale)
