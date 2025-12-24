@@ -120,7 +120,7 @@ fun LessonScreen(
                                 PhraseItem(
                                     phrase = phrase,
                                     onPlayClick = {
-                                        viewModel.playAudio(phrase.original, lesson.languageId)
+                                        viewModel.playAudio(phrase.translation, lesson.languageId)
                                     },
                                     onMicClick = {
                                         if (hasAudioPermission) {
