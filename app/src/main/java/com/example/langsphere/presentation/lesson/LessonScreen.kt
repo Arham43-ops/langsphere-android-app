@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -164,11 +165,15 @@ fun LessonScreen(
 
 @Composable
 fun PhraseItem(phrase: Phrase, onPlayClick: () -> Unit, onMicClick: () -> Unit) {
+    var isCompleted by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(
+            containerColor = if (isCompleted) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surface
+        )
     ) {
         Row(
             modifier = Modifier
@@ -206,16 +211,18 @@ fun PhraseItem(phrase: Phrase, onPlayClick: () -> Unit, onMicClick: () -> Unit) 
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
-                    onClick = onMicClick,
+                    onClick = { isCompleted = !isCompleted },
                     modifier = Modifier
                         .size(48.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.tertiaryContainer)
+                        .background(
+                            if (isCompleted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                        )
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Mic,
-                        contentDescription = "Speak",
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Mark as Completed",
+                        tint = if (isCompleted) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }

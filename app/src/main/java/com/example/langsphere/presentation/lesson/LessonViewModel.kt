@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
@@ -54,11 +55,15 @@ class LessonViewModel @Inject constructor(
             val lesson = (_lessonState.value as? LessonUiState.Success)?.lesson ?: return@launch
             val xpReward = lesson.difficultyLevel * 20 // 20 XP per difficulty level
             
-            // Award XP to current user
-            authRepository.getCurrentUser().collect { user ->
+            // Award XP to current user - use first() to get current state once
+            try {
+                val user = authRepository.getCurrentUser().first()
                 if (user != null) {
                     userDao.addXp(user.id, xpReward)
+                    // TODO: Add lesson completion tracking in future update
                 }
+            } catch (e: Exception) {
+                // Handle error
             }
         }
     }
