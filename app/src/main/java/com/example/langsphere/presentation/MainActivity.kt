@@ -1,29 +1,16 @@
 package com.example.langsphere.presentation
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.example.langsphere.presentation.navigation.AppNavigation
-import com.example.langsphere.presentation.theme.LangSphereTheme
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
+import com.example.langsphere.R
+import com.example.langsphere.databinding.ActivityMainBinding
+class MainActivity : AppCompatActivity() {
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            LangSphereTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AppNavigation()
-                }
-            }
-        }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

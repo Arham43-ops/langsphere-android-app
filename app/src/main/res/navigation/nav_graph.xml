@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.langsphere.presentation.Splash"
+        android:label="Splash"
+        tools:layout="@layout/splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.langsphere.presentation.Register"
+        android:label="Register"
+        tools:layout="@layout/register">
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.langsphere.presentation.Login"
+        android:label="Login"
+        tools:layout="@layout/login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.langsphere.presentation.Home"
+        android:label="Home"
+        tools:layout="@layout/home">
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lessonListFragment"
+            app:destination="@id/lessonListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.langsphere.presentation.Profile"
+        android:label="Profile"
+        tools:layout="@layout/profile">
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.langsphere.presentation.EditProfile"
+        android:label="Edit Profile"
+        tools:layout="@layout/edit_profile">
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.langsphere.presentation.Settings"
+        android:label="Settings"
+        tools:layout="@layout/settings">
+    </fragment>
+
+    <fragment
+        android:id="@+id/lessonListFragment"
+        android:name="com.example.langsphere.presentation.LessonList"
+        android:label="Lessons"
+        tools:layout="@layout/lesson_list">
+        <action
+            android:id="@+id/action_lessonListFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="com.example.langsphere.presentation.Lesson"
+        android:label="Lesson"
+        tools:layout="@layout/lesson">
+    </fragment>
+
+</navigation>

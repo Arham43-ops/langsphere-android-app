@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Language Icon/Flag -->
+        <TextView
+            android:id="@+id/tvLanguageIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/circle_white_bg"
+            android:backgroundTint="@color/brand_light"
+            android:gravity="center"
+            android:text="🌍"
+            android:textSize="28sp" />
+
+        <!-- Language Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/tvLanguageName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:text="Spanish" />
+
+            <TextView
+                android:id="@+id/tvLessonCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:text="12 Lessons Available" />
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="45"
+                android:progressTint="@color/brand_medium"
+                android:progressBackgroundTint="@color/brand_light" />
+
+            <TextView
+                android:id="@+id/tvProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/brand_medium"
+                android:textStyle="bold"
+                android:text="45% Complete" />
+
+        </LinearLayout>
+
+        <!-- Arrow Icon -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@android:drawable/ic_menu_more"
+            android:rotation="270"
+            app:tint="#9E9E9E" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
