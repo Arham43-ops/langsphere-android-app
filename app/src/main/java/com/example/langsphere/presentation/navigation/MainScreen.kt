@@ -2,7 +2,7 @@ package com.example.langsphere.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Chat
+
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
@@ -17,7 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.langsphere.presentation.achievements.AchievementsScreen
-import com.example.langsphere.presentation.chat.ChatScreen
+
 import com.example.langsphere.presentation.home.HomeScreen
 import com.example.langsphere.presentation.leaderboard.LeaderboardScreen
 import com.example.langsphere.presentation.lesson.LessonScreen
@@ -39,19 +39,9 @@ fun MainScreen(
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
-        floatingActionButton = {
-            if (currentRoute == BottomNavItem.Home.route) {
-                FloatingActionButton(
-                    onClick = { bottomNavController.navigate("chat") },
-                    containerColor = MaterialTheme.colorScheme.tertiary,
-                    contentColor = MaterialTheme.colorScheme.onTertiary
-                ) {
-                    Icon(Icons.Default.Chat, contentDescription = "AI Chat")
-                }
-            }
-        },
+
         bottomBar = {
-            if (currentRoute != "lesson/{lessonId}" && currentRoute != "lessonList/{languageId}" && currentRoute != "achievements" && currentRoute != "chat" && currentRoute != "vocabulary" && currentRoute != "editProfile") { 
+            if (currentRoute != "lesson/{lessonId}" && currentRoute != "lessonList/{languageId}" && currentRoute != "achievements" && currentRoute != "vocabulary" && currentRoute != "editProfile") { 
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentColor = MaterialTheme.colorScheme.primary
@@ -108,9 +98,7 @@ fun MainScreen(
                     onNavigateBack = { bottomNavController.popBackStack() }
                 )
             }
-            composable("chat") {
-                ChatScreen(onNavigateBack = { bottomNavController.popBackStack() })
-            }
+
             composable("vocabulary") {
                 VocabularyScreen(onNavigateBack = { bottomNavController.popBackStack() })
             }
