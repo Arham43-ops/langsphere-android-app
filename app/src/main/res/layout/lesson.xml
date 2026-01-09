@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F9FF">
@@ -78,271 +79,20 @@
             android:textColor="#212121"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Phrase 1 -->
-        <androidx.cardview.widget.CardView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPhrases"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hola"
-                        android:textSize="18sp"
-                        android:textColor="#1E88E5"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnPlayAudio1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/brand_medium"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Phrase 2 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Good morning"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buenos días"
-                        android:textSize="18sp"
-                        android:textColor="#1E88E5"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnPlayAudio2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/brand_medium"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Phrase 3 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Thank you"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gracias"
-                        android:textSize="18sp"
-                        android:textColor="#1E88E5"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnPlayAudio3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/brand_medium"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Phrase 4 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Goodbye"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Adiós"
-                        android:textSize="18sp"
-                        android:textColor="#1E88E5"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnPlayAudio4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/brand_medium"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Phrase 5 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Please"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Por favor"
-                        android:textSize="18sp"
-                        android:textColor="#1E88E5"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnPlayAudio5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/brand_medium"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            tools:listitem="@layout/item_phrase"/>
 
         <!-- Complete Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCompleteLesson"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginTop="8dp"
             android:text="Complete Lesson"
             android:textSize="16sp"
             android:textStyle="bold"
